@@ -1,0 +1,31 @@
+.app-wrapper {
+  position: relative;
+  .line {
+    position: absolute;
+    background: #888;
+    z-index: 1;
+    margin: -2px;
+  }
+  .row-line {
+    width: 418px;
+    height: 4px;
+    left: 0;
+    &.row-line-1 {
+      top: 138px;
+    }
+    &.row-line-2 {
+      top: 276px
+    }
+  }
+  .col-line {
+    width: 4px;
+    height: 418px;
+    top: 0;
+    &.col-line-1 {
+      left: 138px;
+    }
+    &.col-line-2 {
+      left: 276px
+    }
+  }
+}
