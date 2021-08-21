@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from '@/components/sudoku'
 import { globalContext } from '@/context'
-
+import './styles/global.less'
 
 let data = [
   [0, 6, 0, 0, 9, 3, 0, 0, 0],
