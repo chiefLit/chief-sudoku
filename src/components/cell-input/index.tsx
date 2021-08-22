@@ -9,9 +9,8 @@ interface CellInputProps {
 }
 
 const CellInput: React.FC<CellInputProps> = (props) => {
-  const { data, onChange } = props;
+  const { data } = props;
   const { editableCell = null, setEditableCell, changeSingleCell, showRemainder } = globalContext.useContainer()
-  const [, forceUpdate] = React.useReducer(x => x + 1, 0)
   const inputRef = React.useRef<HTMLInputElement>()
 
   React.useEffect(() => {
@@ -34,7 +33,6 @@ const CellInput: React.FC<CellInputProps> = (props) => {
     const newCell = { ...data, value: Number(value) || undefined }
     setEditableCell(newCell)
     changeSingleCell(newCell)
-    // onChange && onChange(newCell)
   }
 
   return <>

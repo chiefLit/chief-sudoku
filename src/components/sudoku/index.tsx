@@ -1,21 +1,33 @@
 import React from 'react'
 import { CellInput } from '@/components'
-import type { ICell } from '@/types'
 import { globalContext } from '@/context'
 import './index.less'
 
 const Sudoku: React.FC<{ data: Array<number[]> }> = ({ data }) => {
-  const { cells, rows, cols, grids, oprateInitData, showRemainder, setShowRemainder, setEditableCell } = globalContext.useContainer()
+  const { cells, rows, cols, grids, oprateInitData, showRemainder, setShowRemainder, setEditableCell, changeSingleCell } = globalContext.useContainer()
+
   React.useEffect(() => oprateInitData(data), [])
 
   const actions = {
     clear: () => oprateInitData(data),
     // 展示所有余数
     switchShowRemainder: () => setShowRemainder(!showRemainder),
+    // 补全 todo
+    complete: () => {
+      [rows, cols, grids].forEach((cellsList) => {
+        cellsList.forEach((cells) => {
+          const isOnly = cells.filter(cell => cell.value).length === 1;
+   
+        })
+      })
+    },
     // 找唯一余数
     findUniqueRemainderCell: () => {
       const uniqueRemainderCell = cells.find(cell => !cell.value && cell.group.length === 1)
-      setEditableCell(uniqueRemainderCell)
+      if (uniqueRemainderCell) {
+        setEditableCell({ ...uniqueRemainderCell })
+        changeSingleCell({ ...uniqueRemainderCell, value: uniqueRemainderCell.group[0] })
+      }
     }
   }
 
@@ -39,6 +51,7 @@ const Sudoku: React.FC<{ data: Array<number[]> }> = ({ data }) => {
       <div className={'button-box'}>
         <button onClick={() => actions.clear()}>清除</button>
         <button onClick={() => actions.switchShowRemainder()}>展示余数</button>
+        <button onClick={() => actions.complete()}>补全</button>
         <button onClick={() => actions.findUniqueRemainderCell()}>寻找唯一余数</button>
       </div>
     </div>
